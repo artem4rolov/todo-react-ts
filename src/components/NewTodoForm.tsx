@@ -1,20 +1,25 @@
-import React from "react";
+import {useRef} from 'react'
 
-interface NewTodoProps {
-  handleClick: (text: string) => void;
+interface NewTodoFormProps {
+  handleClick: (text: string) => void,
 }
 
-const NewTodoForm = ({ handleClick }: NewTodoProps) => {
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
+const NewTodoForm = ({ handleClick }: NewTodoFormProps) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const onClick = () => {
     if (inputRef.current) {
-      handleClick(inputRef.current.value);
+      handleClick(inputRef.current.value)
     }
-  };
+  }
+
   return (
     <>
-      <input type="text" placeholder="new todo" ref={inputRef} />
+      <input
+        type="text"
+        placeholder="new todo"
+        ref={inputRef}
+      />
       <button onClick={onClick}>Add todo</button>
     </>
   );

@@ -1,26 +1,29 @@
 import React from "react";
-import { Todo } from "../types/Todo";
+import { Todo } from "../types";
 
-// интерфейс для пропсов
 interface TodoItemProps extends Todo {
-  children?: React.ReactNode;
   style?: React.CSSProperties;
+  toggleTodo: (id: Todo["id"]) => void;
+  removeTodo: (id: Todo["id"]) => void;
 }
 
-// React.FC - heneric, говорим typescript, что TodoItem - это функциональный компонент
 const TodoItem = ({
   id,
   title,
   completed,
-  children,
   style = {},
+  toggleTodo,
+  removeTodo,
 }: TodoItemProps) => {
   return (
-    <li style={{ color: "red", backgroundColor: "white", ...style }}>
-      <input type="checkbox" checked={completed} />
+    <li style={style}>
+      <input
+        type="checkbox"
+        checked={completed}
+        onChange={() => toggleTodo(id)}
+      />
       <span>{title}</span>
-      <span>&times;</span>
-      {children}
+      <span onClick={() => removeTodo(id)}>&times;</span>
     </li>
   );
 };
